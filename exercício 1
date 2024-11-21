@@ -1,0 +1,171 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define TAMANHO 10
+
+// Função para preencher o vetor com valores aleatórios entre 10 e 90
+void preencherVetor(int v[TAMANHO]) {
+    for (int i = 0; i < TAMANHO; i++) {
+        v[i] = rand() % 81 + 10;  // Gera um número entre 10 e 90
+    }
+}
+
+// Função para imprimir o vetor
+void imprimirVetor(int v[TAMANHO]) {
+    for (int i = 0; i < TAMANHO; i++) {
+        printf("%d ", v[i]);
+    }
+    printf("\n");
+}
+
+// Função para verificar se o valor 50 está presente no vetor
+int verificarValor50(int v[TAMANHO]) {
+    for (int i = 0; i < TAMANHO; i++) {
+        if (v[i] == 50) {
+            return 1;  // Encontrado
+        }
+    }
+    return 0;  // Não encontrado
+}
+
+// Função para contar o número de ocorrências do valor 50 no vetor
+int contarOcorrencias50(int v[TAMANHO]) {
+    int contador = 0;
+    for (int i = 0; i < TAMANHO; i++) {
+        if (v[i] == 50) {
+            contador++;
+        }
+    }
+    return contador;
+}
+
+// Função para calcular a média dos valores do vetor
+float calcularMedia(int v[TAMANHO]) {
+    int soma = 0;
+    for (int i = 0; i < TAMANHO; i++) {
+        soma += v[i];
+    }
+    return (float)soma / TAMANHO;
+}
+
+// Função para encontrar o maior e o menor valor no vetor
+void encontrarMaiorEMenor(int v[TAMANHO], int *maior, int *menor) {
+    *maior = v[0];
+    *menor = v[0];
+    for (int i = 1; i < TAMANHO; i++) {
+        if (v[i] > *maior) {
+            *maior = v[i];
+        }
+        if (v[i] < *menor) {
+            *menor = v[i];
+        }
+    }
+}
+
+// Função para calcular a soma e o produto acumulado dos elementos do vetor
+void calcularSomaEProduto(int v[TAMANHO], int *soma, int *produto) {
+    *soma = 0;
+    *produto = 1;
+    for (int i = 0; i < TAMANHO; i++) {
+        *soma += v[i];
+        *produto *= v[i];
+    }
+}
+
+// Função para imprimir o vetor em ordem inversa
+void imprimirVetorInverso(int v[TAMANHO]) {
+    for (int i = TAMANHO - 1; i >= 0; i--) {
+        printf("%d ", v[i]);
+    }
+    printf("\n");
+}
+
+// Função para copiar os elementos do vetor em ordem inversa para outro vetor
+void copiarVetorInverso(int v[TAMANHO], int vInverso[TAMANHO]) {
+    for (int i = 0; i < TAMANHO; i++) {
+        vInverso[i] = v[TAMANHO - 1 - i];
+    }
+}
+
+// Função para separar os elementos pares e ímpares em dois vetores
+void separarParesEImpares(int v[TAMANHO], int vPares[TAMANHO], int vImpares[TAMANHO], int *numPares, int *numImpares) {
+    *numPares = 0;
+    *numImpares = 0;
+    for (int i = 0; i < TAMANHO; i++) {
+        if (v[i] % 2 == 0) {
+            vPares[*numPares] = v[i];
+            (*numPares)++;
+        } else {
+            vImpares[*numImpares] = v[i];
+            (*numImpares)++;
+        }
+    }
+}
+
+int main() {
+    srand(time(NULL));  // Inicializa o gerador de números aleatórios
+
+    int v[TAMANHO], vInverso[TAMANHO];
+    int vPares[TAMANHO], vImpares[TAMANHO];
+    int numPares, numImpares;
+
+    // Preencher o vetor com valores aleatórios
+    preencherVetor(v);
+
+    // a. Imprimir o vetor
+    printf("Vetor original:\n");
+    imprimirVetor(v);
+
+    // b. Verificar se existe o valor 50 no vetor
+    if (verificarValor50(v)) {
+        printf("O valor 50 foi encontrado no vetor.\n");
+    } else {
+        printf("O valor 50 não foi encontrado no vetor.\n");
+    }
+
+    // c. Verificar o número de ocorrências do valor 50
+    int ocorrencias50 = contarOcorrencias50(v);
+    printf("O valor 50 aparece %d vez(es) no vetor.\n", ocorrencias50);
+
+    // d. Calcular a média dos valores do vetor
+    float media = calcularMedia(v);
+    printf("A média dos valores do vetor é: %.2f\n", media);
+
+    // e. Encontrar o maior e o menor valor dos elementos do vetor
+    int maior, menor;
+    encontrarMaiorEMenor(v, &maior, &menor);
+    printf("Maior valor: %d\n", maior);
+    printf("Menor valor: %d\n", menor);
+
+    // f. Imprimir a soma e o produto acumulado dos valores dos elementos do vetor
+    int soma, produto;
+    calcularSomaEProduto(v, &soma, &produto);
+    printf("Soma dos elementos: %d\n", soma);
+    printf("Produto dos elementos: %d\n", produto);
+
+    // g. Imprimir o vetor em ordem inversa
+    printf("Vetor em ordem inversa:\n");
+    imprimirVetorInverso(v);
+
+    // h. Copiar os elementos em ordem inversa para outro vetor
+    copiarVetorInverso(v, vInverso);
+    printf("Vetor copiado em ordem inversa:\n");
+    imprimirVetor(vInverso);
+
+    // i. Criar vetores vPares e vImpares e imprimir
+    separarParesEImpares(v, vPares, vImpares, &numPares, &numImpares);
+    printf("Vetor de Pares:\n");
+    for (int i = 0; i < numPares; i++) {
+        printf("%d ", vPares[i]);
+    }
+    printf("\n");
+
+    printf("Vetor de Impares:\n");
+    for (int i = 0; i < numImpares; i++) {
+        printf("%d ", vImpares[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
