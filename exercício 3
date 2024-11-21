@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    int N;  // Número de lançamentos
+    int faces[6] = {0, 0, 0, 0, 0, 0};  // Array para contar o número de ocorrências de cada face
+
+    // Leitura do número de lançamentos
+    printf("Digite o número de lançamentos do dado: ");
+    scanf("%d", &N);
+
+    // Inicializando o gerador de números aleatórios
+    srand(time(NULL));
+
+    // Simulando o lançamento do dado N vezes
+    for (int i = 0; i < N; i++) {
+        int lancamento = rand() % 6;  // Gera um número aleatório entre 0 e 5
+        faces[lancamento]++;  // Incrementa a contagem para a face correspondente (0 = face 1, 1 = face 2, ...)
+    }
+
+    // Imprimindo os resultados
+    printf("\nResultados dos lançamentos (percentual de cada face):\n");
+    for (int i = 0; i < 6; i++) {
+        double percentual = (faces[i] * 100.0) / N;  // Calculando o percentual
+        printf("Face %d: %.2f%%\n", i + 1, percentual);  // Imprimindo o percentual para cada face
+    }
+
+    return 0;
+}
