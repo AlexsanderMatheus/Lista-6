@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define DIAS_MES 30
+#define CONSUMO_MINIMO 100
+#define CONSUMO_MAXIMO 500
+
+int main() {
+    int consumo[DIAS_MES];  // Vetor para armazenar o consumo diário de água
+    int totalConsumo = 0;   // Variável para o total de consumo
+    int maiorConsumo = CONSUMO_MINIMO, menorConsumo = CONSUMO_MAXIMO;
+    int diaMaiorConsumo, diaMenorConsumo;
+
+    // Inicializando o gerador de números aleatórios
+    srand(time(NULL));
+
+    // a. Sorteio e armazenamento do consumo diário de água
+    for (int i = 0; i < DIAS_MES; i++) {
+        consumo[i] = rand() % (CONSUMO_MAXIMO - CONSUMO_MINIMO + 1) + CONSUMO_MINIMO;
+        totalConsumo += consumo[i];  // Acumulando o total de consumo
+    }
+
+    // b. Calcular o consumo total do mês
+    printf("Consumo diário de água para cada dia do mês:\n");
+    for (int i = 0; i < DIAS_MES; i++) {
+        printf("Dia %d: %d litros\n", i + 1, consumo[i]);
+    }
+
+    printf("\n");
+
+    // c. Calcular a média de consumo diário
+    float mediaConsumo = totalConsumo / (float)DIAS_MES;
+    printf("Consumo total no mês: %d litros\n", totalConsumo);
+    printf("Média diária de consumo: %.2f litros\n", mediaConsumo);
+
+    // d. Encontrar o dia com o maior e menor consumo de água
+    for (int i = 0; i < DIAS_MES; i++) {
+        if (consumo[i] > maiorConsumo) {
+            maiorConsumo = consumo[i];
+            diaMaiorConsumo = i + 1;
+        }
+        if (consumo[i] < menorConsumo) {
+            menorConsumo = consumo[i];
+            diaMenorConsumo = i + 1;
+        }
+    }
+
+    // Imprimir os dias com o maior e menor consumo
+    printf("\nO maior consumo de água foi no Dia %d com %d litros.\n", diaMaiorConsumo, maiorConsumo);
+    printf("O menor consumo de água foi no Dia %d com %d litros.\n", diaMenorConsumo, menorConsumo);
+
+    return 0;
+}
