@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+#define TAMANHO 5
+
+int main() {
+    int vetor[TAMANHO];
+
+    // Leitura dos valores para o vetor
+    printf("Digite 5 valores inteiros:\n");
+    for (int i = 0; i < TAMANHO; i++) {
+        printf("Valor %d: ", i + 1);
+        scanf("%d", &vetor[i]);
+    }
+
+    // Imprimir o resultado de cada valor multiplicado pela sua posição no vetor
+    printf("\nResultado da multiplicação dos valores pelas suas posições:\n");
+    for (int i = 0; i < TAMANHO; i++) {
+        printf("Valor %d (posição %d): %d\n", vetor[i], i, vetor[i] * i);
+    }
+
+    return 0;
+}
