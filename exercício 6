@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define NUM_JOGADORES 4
+#define NUM_RODADAS 5
+#define PONTUACAO_MIN 0
+#define PONTUACAO_MAX 100
+
+int main() {
+    int pontos[NUM_JOGADORES] = {0};  // Vetor para armazenar a pontuação acumulada de cada jogador
+    int pontosRodada[NUM_JOGADORES];   // Vetor temporário para armazenar a pontuação de cada jogador na rodada
+    int vencedor = -1;                 // Índice do jogador vencedor
+    int maiorPontuacao = -1;           // Maior pontuação acumulada
+
+    // Inicializando o gerador de números aleatórios
+    srand(time(NULL));
+
+    // a. Criar o vetor de pontuação (inicializado em 0)
+    // Já está inicializado em 0 no vetor `pontos` acima
+
+    // b. A cada rodada, sorteie a pontuação para cada jogador
+    for (int rodada = 1; rodada <= NUM_RODADAS; rodada++) {
+        printf("Rodada %d:\n", rodada);
+
+        // Sorteando a pontuação para cada jogador
+        for (int j = 0; j < NUM_JOGADORES; j++) {
+            pontosRodada[j] = rand() % (PONTUACAO_MAX - PONTUACAO_MIN + 1) + PONTUACAO_MIN;
+            pontos[j] += pontosRodada[j];  // Atualiza a pontuação acumulada
+            printf("Jogador %d: %d pontos\n", j + 1, pontosRodada[j]);
+
+            // d. Verificar se algum jogador fez mais de 80 pontos e exibir "Rodada de Destaque"
+            if (pontosRodada[j] > 80) {
+                printf("Jogador %d teve uma Rodada de Destaque!\n", j + 1);
+            }
+        }
+
+        printf("\n");
+    }
+
+    // e. Exibir a pontuação total de cada jogador
+    printf("Pontuação final dos jogadores após as 5 rodadas:\n");
+    for (int j = 0; j < NUM_JOGADORES; j++) {
+        printf("Jogador %d: %d pontos\n", j + 1, pontos[j]);
+
+        // f. Verificar quem é o vencedor ou se houve empate
+        if (pontos[j] > maiorPontuacao) {
+            maiorPontuacao = pontos[j];
+            vencedor = j;
+        } else if (pontos[j] == maiorPontuacao) {
+            vencedor = -1;  // Empate
+        }
+    }
+
+    // Exibindo o vencedor ou empate
+    if (vencedor != -1) {
+        printf("\nJogador %d venceu com %d pontos!\n", vencedor + 1, maiorPontuacao);
+    } else {
+        printf("\nHouve um empate entre os jogadores.\n");
+    }
+
+    return 0;
+}
