@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+#define DIAS_SEMANA 7
+#define META_PASSOS 10000
+
+int main() {
+    int passos[DIAS_SEMANA];  // Vetor para armazenar os passos dados em cada dia
+    int totalPassos = 0;       // Variável para o total de passos
+    float mediaPassos;         // Variável para a média diária de passos
+
+    // a. Ler e armazenar o número de passos dados em cada um dos 7 dias da semana
+    printf("Digite o número de passos dados em cada um dos 7 dias da semana:\n");
+    for (int i = 0; i < DIAS_SEMANA; i++) {
+        printf("Dia %d: ", i + 1);
+        scanf("%d", &passos[i]);
+        totalPassos += passos[i];  // Calcula o total de passos enquanto lê os valores
+    }
+
+    // b. Calcular o total de passos dados na semana
+    printf("\nTotal de passos dados na semana: %d\n", totalPassos);
+
+    // c. Calcular a média diária de passos
+    mediaPassos = totalPassos / (float)DIAS_SEMANA;
+    printf("Média diária de passos: %.2f\n", mediaPassos);
+
+    // d. Verificar se a pessoa atingiu a meta de 10.000 passos em algum dos dias
+    printf("\nDias em que a meta de 10.000 passos foi atingida:\n");
+    int metaAlcancada = 0;  // Variável para verificar se a meta foi atingida
+    for (int i = 0; i < DIAS_SEMANA; i++) {
+        if (passos[i] >= META_PASSOS) {
+            printf("Dia %d: %d passos\n", i + 1, passos[i]);
+            metaAlcancada = 1;
+        }
+    }
+
+    if (!metaAlcancada) {
+        printf("Nenhum dia atingiu a meta de 10.000 passos.\n");
+    }
+
+    return 0;
+}
